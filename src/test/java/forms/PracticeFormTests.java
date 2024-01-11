@@ -2,12 +2,10 @@ package forms;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import page_objects.PracticeForm;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -27,6 +25,12 @@ public class PracticeFormTests {
     void doClean(){
         clearBrowserLocalStorage();
         clearBrowserCookies();
+
+    }
+    @AfterAll
+    static void closeAll(){
+        closeWebDriver();
+
     }
 
     @Test
@@ -38,7 +42,12 @@ public class PracticeFormTests {
                 .checkStudentEmail("testemail@gmail.com")
                 .checkGender("Female")
                 .checkMobile("1234567890")
-                .checkDateofBirth("November", "2022", "15");
+                .checkDateOfBirth("November", "2022", "15")
+                .checkSubject("Maths")
+                .checkHobbies("Reading")
+                .checkPicture("Test.PNG")
+                .checkAddress("Test Current Address")
+                .checkStateAndCity("Rajasthan","Jaipur");
 
     }
 
