@@ -10,7 +10,8 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeForm {
-    public PracticeForm fullFillForm(String firstName, String lastName, String email, String gender, String mobile, PracticeForm dateOfBirth,
+
+    public  PracticeForm fullFillForm(String firstName, String lastName, String email, String gender, String mobile,
                                   String subjects, String hobbies, String picture, String currentAddress, String state, String city){
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
@@ -31,14 +32,14 @@ public class PracticeForm {
         return this;
     }
 
-    public PracticeForm setDateOfBirth(String mounth, String year, String day){
+    public static void setDateOfBirth(String mounth, String year, String day){
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").click();
         $(byText(mounth)).click();
         $(".react-datepicker__year-select").click();
         $(byText(year)).click();
         $(byText(day)).click();
-        return this;
+
     }
 
     public PracticeForm checkStudentName(String firstName, String lastName){
