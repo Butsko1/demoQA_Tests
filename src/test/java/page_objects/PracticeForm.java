@@ -2,8 +2,6 @@ package page_objects;
 
 import com.codeborne.selenide.SelenideElement;
 
-import java.io.File;
-import java.net.URL;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
@@ -20,9 +18,7 @@ public class PracticeForm {
         $(byText(gender)).click();
         $("#subjectsInput").setValue(subjects).pressEnter();
         $(byText(hobbies)).click();
-        ClassLoader classLoader = getClass().getClassLoader();
-        File testFile = new File(classLoader.getResource("images/"+ picture +".PNG").getFile());
-        $("#uploadPicture").uploadFile(testFile);
+        $("#uploadPicture").uploadFromClasspath(picture);
         $("#currentAddress").setValue(currentAddress);
         $("#state").click();
         $(byText(state)).click();
