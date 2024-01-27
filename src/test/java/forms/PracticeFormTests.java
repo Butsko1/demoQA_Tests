@@ -19,6 +19,7 @@ public class PracticeFormTests extends BaseTest {
     @DisplayName("Заполнение с разным полом")
     @Story("Заполнение формы")
     @MethodSource("source.PracticeFormSource#methodSourse")
+    @Tag("form-test")
     @ParameterizedTest(name = "gender is {3}")
     void testRegularSubmit(String name, String lastName,String email, String gender, String mobile, String subjects, String hobbies, String picture, String address, String state, String city){
         SelenideLogger.addListener("allure",new AllureSelenide());
