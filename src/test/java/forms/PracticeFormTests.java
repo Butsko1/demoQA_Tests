@@ -1,49 +1,27 @@
 package forms;
 
 import com.codeborne.selenide.Configuration;
-import com.github.javafaker.Faker;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import page_objects.PracticeForm;
-
-import java.util.Locale;
-import java.util.stream.Stream;
 import static com.codeborne.selenide.Selenide.*;
 
-
-public class PracticeFormTests {
+public class PracticeFormTests extends BaseTest {
     PracticeForm practiceForm = new PracticeForm();
-    static Faker faker = new Faker();
-    @BeforeAll
-    static void setConfigs(){
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.browserSize = "1920x1080";
-    }
-    @BeforeEach
-    void openPage(){
-        open("https://demoqa.com/automation-practice-form");
-    }
 
-    @AfterAll
-    static void closeAll(){
-        closeWebDriver();
-
-    }
-    static Stream<Arguments> methodSourse(){
-        return Stream.of(
-                Arguments.of(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "Female", faker.number().digits(10),
-                        "Maths","Reading", "images/Test.PNG",faker.address().fullAddress(), "Rajasthan", "Jaipur"),
-                Arguments.of(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "Male", faker.number().digits(10),
-                        "Maths","Reading", "images/Test.PNG",faker.address().fullAddress(), "Rajasthan", "Jaipur"),
-                Arguments.of(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), "Other", faker.number().digits(10),
-                        "Maths","Reading", "images/Test.PNG",faker.address().fullAddress(), "Rajasthan", "Jaipur")
-        );
-    }
-    @MethodSource("methodSourse")
+    @Feature("Форма")
+    @DisplayName("Заполнение с разным полом")
+    @Story("Заполнение формы")
+    @MethodSource("source.PracticeFormSource#methodSourse")
     @ParameterizedTest(name = "gender is {3}")
     void testRegularSubmit(String name, String lastName,String email, String gender, String mobile, String subjects, String hobbies, String picture, String address, String state, String city){
+        SelenideLogger.addListener("allure",new AllureSelenide());
         PracticeForm.setDateOfBirth("November", "2022", "15");
         practiceForm.fullFillForm(name, lastName, email, gender, mobile,
                 subjects,hobbies, picture,address, state, city);
